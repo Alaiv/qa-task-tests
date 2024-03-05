@@ -1,5 +1,6 @@
 package com.example.seleniumqatest.pages;
 
+import com.example.seleniumqatest.constants.ErrorConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,14 +30,12 @@ public class LoginPage extends BasePage {
         return new InputsPage(driver);
     }
 
-    public void assertMailErrorDisplayed(String message) {
-        WebElement el = waitAppear(errorEmailMessage);
-        assertElementText(el, message);
-    }
+    public void assertErrorDisplayed(String error) {
+        WebElement el = error.equals(ErrorConstants.MAIL_ERROR)
+                ? waitAppear(errorEmailMessage)
+                : waitAppear(errorAuthMessage);
 
-    public void assertAuthErrorDisplayed(String message) {
-        WebElement el = waitAppear(errorAuthMessage);
-        assertElementText(el, message);
+        assertElementText(el, error);
     }
 
     private void sendEmail(String email) {

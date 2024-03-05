@@ -1,11 +1,18 @@
 package com.example.seleniumqatest.tests;
 
-import com.example.seleniumqatest.pages.LoginPage;
 import com.example.seleniumqatest.constants.ErrorConstants;
+import com.example.seleniumqatest.pages.LoginPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-public class LoginTests extends BaseTest{
+import java.util.stream.Stream;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class LoginTests extends BaseTest {
     private LoginPage loginPage;
 
     @BeforeEach
@@ -23,30 +30,18 @@ public class LoginTests extends BaseTest{
                 .assertInputFormVisible();
     }
 
-    @Test
-    public void loginWithInValidEmail() {
-        String email = "rotei.ru";
-        String pass = settingsConfig.password();
-
+    @ParameterizedTest
+    @MethodSource("invalidLoginData")
+    public void loginWithInValidEmail(String email, String pass, String error) {
         loginPage.login(email, pass);
-        loginPage.assertMailErrorDisplayed(ErrorConstants.MAIL_ERROR);
+        loginPage.assertErrorDisplayed(error);
     }
 
-    @Test
-    public void loginWithInValidPassword() {
-        String email = settingsConfig.email();
-        String pass = "tfsdf";
-
-        loginPage.login(email, pass);
-        loginPage.assertAuthErrorDisplayed(ErrorConstants.AUTH_ERROR);
-    }
-
-    @Test
-    public void loginWithEmptyFields() {
-        String email = "";
-        String pass = "";
-
-        loginPage.login(email, pass);
-        loginPage.assertMailErrorDisplayed(ErrorConstants.MAIL_ERROR);
+    private Stream<Arguments> invalidLoginData() {
+        return Stream.of(
+                Arguments.of("rotei.ru", settingsConfig.password(), ErrorConstants.MAIL_ERROR),
+                Arguments.of(settingsConfig.email(), "qwerty", ErrorConstants.AUTH_ERROR),
+                Arguments.of("", "", ErrorConstants.MAIL_ERROR)
+        );
     }
 }
