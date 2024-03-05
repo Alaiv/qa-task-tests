@@ -1,6 +1,5 @@
-package com.example.seleniumqatest.Pages;
+package com.example.seleniumqatest.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -31,12 +30,12 @@ public class LoginPage extends BasePage {
     }
 
     public void assertMailErrorDisplayed(String message) {
-        WebElement el = waitForLoad(errorEmailMessage);
+        WebElement el = waitAppear(errorEmailMessage);
         assertElementText(el, message);
     }
 
     public void assertAuthErrorDisplayed(String message) {
-        WebElement el = waitForLoad(errorAuthMessage);
+        WebElement el = waitAppear(errorAuthMessage);
         assertElementText(el, message);
     }
 

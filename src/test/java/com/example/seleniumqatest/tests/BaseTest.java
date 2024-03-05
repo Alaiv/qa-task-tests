@@ -1,7 +1,8 @@
-package com.example.seleniumqatest;
+package com.example.seleniumqatest.tests;
 
-import com.example.seleniumqatest.Pages.BasePage;
+import com.example.seleniumqatest.pages.BasePage;
 import com.example.seleniumqatest.models.SettingsConfig;
+import com.google.common.util.concurrent.FakeTimeLimiter;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -17,6 +18,8 @@ public class BaseTest {
     protected String BASE_URL;
     protected WebDriver driver;
     protected SettingsConfig settingsConfig;
+
+
 
     @BeforeEach
     public void setUp() {

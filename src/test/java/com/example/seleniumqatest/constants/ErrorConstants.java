@@ -1,4 +1,4 @@
-package com.example.seleniumqatest.contants;
+package com.example.seleniumqatest.constants;
 
 public class ErrorConstants {
     public static final String MAIL_ERROR = "Неверный формат E-Mail";
