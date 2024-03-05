@@ -1,5 +1,6 @@
 package com.example.seleniumqatest.pages;
 
+import com.example.seleniumqatest.constants.InputFormConstants;
 import com.example.seleniumqatest.models.InputFormModel;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
@@ -8,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 public class InputsPage extends BasePage {
 
@@ -147,9 +150,29 @@ public class InputsPage extends BasePage {
         Assertions.assertTrue(actualValues.contains(model.getEmail().toLowerCase()));
         Assertions.assertTrue(actualValues.contains(model.getName().toLowerCase()));
         Assertions.assertTrue(actualValues.contains(model.getGender().toString().toLowerCase()));
-        Assertions.assertTrue(actualValues.contains(model.getCheckBoxValue1().toLowerCase()));
-        Assertions.assertTrue(actualValues.contains(model.getRadioValue().toLowerCase()));
+        Assertions.assertTrue(actualValues.contains(getRadioValue(model)));
+        Assertions.assertTrue(actualValues.contains(getCheckboxValue(model)));
 
         return this;
+    }
+
+    private String getCheckboxValue(InputFormModel model) {
+        StringJoiner joiner = new StringJoiner(", ");
+
+        if (model.getCheckBoxValue1() != null) {
+            joiner.add(model.getCheckBoxValue1());
+        }
+
+        if (model.getCheckBoxValue2() != null) {
+            joiner.add(model.getCheckBoxValue2());
+        }
+
+        return joiner.toString().isEmpty()
+                ? InputFormConstants.defaultCheckBoxValue
+                : joiner.toString();
+    }
+
+    private String getRadioValue(InputFormModel model) {
+        return model.getRadioValue() == null ? "" : model.getRadioValue().toLowerCase();
     }
 }

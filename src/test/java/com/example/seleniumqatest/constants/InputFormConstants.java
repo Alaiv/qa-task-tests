@@ -6,4 +6,5 @@ public class InputFormConstants {
     public static String radioFirst = "2.1";
     public static String radioSecond = "2.2";
     public static String radioThird = "2.3";
+    public static String defaultCheckBoxValue = "Нет";
 }

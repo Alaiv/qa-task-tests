@@ -34,4 +34,15 @@ public abstract class InputFormModelFactory {
                 .radioValue(InputFormConstants.radioThird)
                 .build();
     }
+
+    public static InputFormModel allFieldValidBothCheckboxesModel() {
+        return InputFormModel.builder()
+                .name("SomeName")
+                .email("anotherGood@google.com")
+                .gender(Gender.Male)
+                .checkBoxValue1(InputFormConstants.checkBoxFirst)
+                .checkBoxValue2(InputFormConstants.checkBoxSecond)
+                .radioValue(InputFormConstants.radioThird)
+                .build();
+    }
 }

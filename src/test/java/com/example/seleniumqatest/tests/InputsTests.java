@@ -65,4 +65,21 @@ public class InputsTests extends BaseTest {
                 InputFormModelFactory.allFieldValidLongNameModel()
         );
     }
+
+    @Test
+    public void addItemWithAllValidAndBothCheckboxesTest() {
+        InputFormModel model = InputFormModelFactory.allFieldValidBothCheckboxesModel();
+
+        inputsPage
+                .sendEmail(model.getEmail())
+                .sendName(model.getName())
+                .selectGender(model.getGender().toString())
+                .selectCheckbox(model.getCheckBoxValue1())
+                .selectCheckbox(model.getCheckBoxValue2())
+                .selectRadio(model.getRadioValue())
+                .submitForm()
+                .closeModal()
+                .assertThatItemAdded()
+                .assertItemHaveGivenData(model);
+    }
 }
