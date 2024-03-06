@@ -1,8 +1,8 @@
 package com.example.seleniumqatest.pages;
 
+import com.example.seleniumqatest.constants.ErrorConstants;
 import com.example.seleniumqatest.constants.InputFormConstants;
 import com.example.seleniumqatest.models.InputFormModel;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 public class InputsPage extends BasePage {
 
@@ -38,20 +37,24 @@ public class InputsPage extends BasePage {
     @FindBy(xpath = "//button[contains(@class, 'uk-modal-close')]")
     private WebElement modalBtn;
 
-    @FindBy(xpath = "//table[@id='dataTable']//th")
-    private List<WebElement> tableColumns;
-
     @FindBy(xpath = "//table[@id='dataTable']//td")
     private List<WebElement> tableValues;
+
+    @FindBy(id = "emailFormatError")
+    private WebElement errorEmailMessage;
+
+    @FindBy(id = "blankNameError")
+    private WebElement errorBlankNameMessage;
 
     public InputsPage(WebDriver webDriver) {
         PageFactory.initElements(webDriver, this);
     }
 
-
     public InputsPage closeModal() {
+        By noModalHtmlTag = By.xpath("//html[@class='uk-notouch']");
+
         waitClickable(modalBtn).click();
-        waitAppear(By.xpath("//html[@class='uk-notouch']"));
+        waitAppear(noModalHtmlTag);
         return this;
     }
 
@@ -98,7 +101,7 @@ public class InputsPage extends BasePage {
                 .stream()
                 .filter(f -> f.getText().trim().equalsIgnoreCase(basePrefix + itemValue))
                 .findFirst()
-                .orElseThrow(() -> new NotFoundException("Given value do not exist"));
+                .orElseThrow(() -> new NotFoundException("Given value do not exist: " + itemValue));
     }
 
     // assertions
@@ -141,6 +144,14 @@ public class InputsPage extends BasePage {
         return this;
     }
 
+    public void assertErrorDisplayed(String error) {
+        WebElement el = error.equals(ErrorConstants.MAIL_ERROR)
+                ? waitAppear(errorEmailMessage)
+                : waitAppear(errorBlankNameMessage);
+
+        assertElementText(el, error);
+    }
+
     public InputsPage assertItemHaveGivenData(InputFormModel model) {
         List<String> actualValues = tableValues
                 .stream()
@@ -168,7 +179,7 @@ public class InputsPage extends BasePage {
         }
 
         return joiner.toString().isEmpty()
-                ? InputFormConstants.defaultCheckBoxValue
+                ? InputFormConstants.defaultCheckBoxValue.toLowerCase()
                 : joiner.toString();
     }
 
