@@ -179,7 +179,7 @@ public class InputsPage extends BasePage {
         }
 
         return joiner.toString().isEmpty()
-                ? InputFormConstants.defaultCheckBoxValue.toLowerCase()
+                ? InputFormConstants.DEFAULT_CHECKBOX_VALUE.toLowerCase()
                 : joiner.toString();
     }
 

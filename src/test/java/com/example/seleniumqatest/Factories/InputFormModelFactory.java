@@ -10,8 +10,8 @@ public abstract class InputFormModelFactory {
                 .name("Goodname")
                 .email("good@mail.com")
                 .gender(Gender.Female)
-                .checkBoxValue1(InputFormConstants.checkBoxFirst)
-                .radioValue(InputFormConstants.radioFirst)
+                .checkBoxValue1(InputFormConstants.CHECKBOX_FIRST)
+                .radioValue(InputFormConstants.RADIO_FIRST)
                 .build();
     }
 
@@ -20,8 +20,8 @@ public abstract class InputFormModelFactory {
                 .name("G")
                 .email("good@yandex.com")
                 .gender(Gender.Male)
-                .checkBoxValue1(InputFormConstants.checkBoxSecond)
-                .radioValue(InputFormConstants.radioSecond)
+                .checkBoxValue1(InputFormConstants.CHECKBOX_SECOND)
+                .radioValue(InputFormConstants.RADIO_SECOND)
                 .build();
     }
 
@@ -30,8 +30,8 @@ public abstract class InputFormModelFactory {
                 .name("VeryLongName123#@!#!$83123000000000000123)qwerrtyu")
                 .email("anotherGood@google.com")
                 .gender(Gender.Male)
-                .checkBoxValue1(InputFormConstants.checkBoxFirst)
-                .radioValue(InputFormConstants.radioThird)
+                .checkBoxValue1(InputFormConstants.CHECKBOX_FIRST)
+                .radioValue(InputFormConstants.RADIO_THIRD)
                 .build();
     }
 
@@ -40,9 +40,9 @@ public abstract class InputFormModelFactory {
                 .name("SomeName")
                 .email("anotherGood@google.com")
                 .gender(Gender.Male)
-                .checkBoxValue1(InputFormConstants.checkBoxFirst)
-                .checkBoxValue2(InputFormConstants.checkBoxSecond)
-                .radioValue(InputFormConstants.radioThird)
+                .checkBoxValue1(InputFormConstants.CHECKBOX_FIRST)
+                .checkBoxValue2(InputFormConstants.CHECKBOX_SECOND)
+                .radioValue(InputFormConstants.RADIO_THIRD)
                 .build();
     }
 
@@ -67,8 +67,8 @@ public abstract class InputFormModelFactory {
                 .name("SomeName")
                 .email("test@@com")
                 .gender(Gender.Female)
-                .checkBoxValue1(InputFormConstants.checkBoxFirst)
-                .radioValue(InputFormConstants.radioThird)
+                .checkBoxValue1(InputFormConstants.CHECKBOX_FIRST)
+                .radioValue(InputFormConstants.RADIO_THIRD)
                 .build();
     }
 
